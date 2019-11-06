@@ -1,0 +1,74 @@
+extends ../layout/base 
+block content 
+	section.content-header 
+		h1 
+			| Edit Barang
+			small menu for editing barang data
+		ol.breadcrumb 
+			li 
+				a(href='#') 
+					i.fa.fa-dashboard
+					| Level 
+			li.active Here 
+	section.content
+		.box
+			.box-header.with-border
+				h3.box-title
+					| Barang
+				.box-tools.pull-right
+					button(type='button', data-widget='collapse', data-toggle='tooltip',title='collapse').btn.btn-box-tool
+						i.fa.fa-minus
+					
+			.box-body
+				form(role='form',method='post' action='/barang/edit/#{(code==undefined) ? data.code : code}')
+					.row
+						
+						.col-xs-6
+							.box-body
+								- if (messages.msg_error) 
+									.alert.alert-danger.alert-dismissable 
+										button.close(type='button', data-dismiss='alert', aria-hidden='true') 
+											| ×
+										h4
+											i.icon.fa.fa-ban
+											| Alert! 
+										| !{messages.msg_error}
+								- if (messages.msg_info) 
+									.alert.alert-success.alert-dismissable 
+										button.close(type='button', data-dismiss='alert', aria-hidden='true') 
+											| ×
+										h4
+											i.icon.fa.fa-ban
+											| Success! 
+										| !{messages.msg_info}
+										.form-group
+									label
+										| Code
+									input(type='int',value="#{data.code}",name='code',placeholder='Enter Code', autofocus).form-control
+								.form-group
+									label
+										| Name
+									input(type='text',value="#{data.name}",name='name',placeholder='Enter Name', autofocus).form-control
+								.form-group
+									label
+										| Merk
+									input(type='text',value="#{data.merk}",name='merk',placeholder='Enter Merk', autofocus).form-control
+								.form-group
+									label
+										| Amount
+									input(type='int',value="#{data.amount}",name='amount',placeholder='Enter Amount', autofocus).form-control
+								.form-group
+									label
+										| Unit
+									input(type='text',value="#{ (unit == undefined) ? data.unit : unit }",name='unit',placeholder='Enter Unit').form-control
+								.form-group
+									label
+										| Price
+									input(type='text',value="#{ (price == undefined) ? data.price : price }",name='price',placeholder='Enter Price').form-control
+							.box-footer
+								input(type="hidden",name="_method", value="PUT")
+								button(type='submit').btn.btn-primary
+									i.fa.fa-pencil 
+									|  Edit
+								a(href='/barang').btn.btn-primary.pull-right
+									| Back
